@@ -25,10 +25,9 @@ public class BookDAO {
 	Book oneBook = null;
 	Connection conn = null;
 	Statement stmt = null;
-	String user = "mcgrathj";
-	String password = "crewsoiP6";
-	// Note none default port used, 6306 not 3306
-	String url = "jdbc:mysql://mudfoot.doc.stu.mmu.ac.uk:6306/" + user;
+	String user = "YOUR_USERNAME";
+	String password = "YOUR_PASSWORD";
+	String url = "YOU_MySQL_DATABASE_URL" + user;
 	
 
 	public BookDAO() {
