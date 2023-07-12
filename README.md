@@ -34,8 +34,8 @@ Bookstr is built using the following technologies:
 To set up the Bookstr application locally, follow these steps:
 
 	•	Download the Bookstr .war file from the GitHub repository.
-	•	Navigate in your directory to Cloud-Enterprise-RESTful/build/classes/database/config.properties.
-	•	In the config.properties file, you will find login details for a MySQL database. 
+	•	Navigate in your directory to Cloud-Enterprise-RESTful/src/main/java/db/BookDAO.java
+	•	In the BookDAO file, you will find login details for a MySQL database. 
 	•	Change the details for your login and save;
 	  ⁃	username=YOUR_USERNAME
 	  ⁃	password=YOUR_PASSWORD
