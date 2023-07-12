@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>The Book Store</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="img/bookstrIcon.png">
+</head>
+<div class="jumbotron">
+	<div class="container text-center">
+		<h1>BOOKSTR</h1>
+		<p>the book store</p>
+	</div>
+</div>
+
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#myNavbar">
+				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="nav navbar-nav">
+				<li><a style="padding: 0;" href="../Cloud-Enterprise-MVC/index"><img
+						src="img/bookstrSmall.png" class="logo"></a></li>
+				<li><button type="button" class="btn btn-default btn-sm mr-1"
+						style="margin: 10px;" data-toggle="modal" data-target="#myModal">
+						<span class="glyphicon glyphicon-book"></span> Add
+					</button></li>
+				<li class="mr-1"><br></li>
+
+				<li>
+					<div>
+						<button type="button"
+							class="btn btn-default btn-sm dropdown-toggle mr-1"
+							style="margin: 10px;" data-toggle="dropdown">Data Type</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item btn btn-default btn-sm" style="margin: 10px;" name="format" value="xml">XML</button>
+							<button class="dropdown-item btn btn-default btn-sm" style="margin: 10px;" name="format" value="json">JSON</button> 
+							<button class="dropdown-item btn btn-default btn-sm" style="margin: 10px;" name="format" value="string">Plain Text</button>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+				
+				
+				<input type="text" id="searchInput" placeholder="e.g. Harry Potter..." style="margin: 10px;">
+<button id="searchButton" class="btn btn-default btn-sm">Search</button>
+				
+				
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Got a book you want to share? Add it to
+					the store!</h4>
+			</div>
+			<div class="modal-body">
+				<form action="books" method="post" class="form-horizontal">
+					<div class="form-group">
+						<label for="title" class="control-label col-sm-2">Title:</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" id="title" name="title"><br>
+						</div>
+
+						<label for="author" class="control-label col-sm-2">Author:</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" id="author" name="author"><br>
+						</div>
+
+						<label for="date" class="control-label col-sm-2">Date:</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="date" id="date" name="date"><br>
+						</div>
+
+						<label for="genres" class="control-label col-sm-2">Genres:</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" id="genres" name="genres"><br>
+						</div>
+
+						<label for="characters" class="control-label col-sm-2">Characters:</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" id="characters"
+								name="characters"><br>
+						</div>
+
+						<label for="synopsis" class="control-label col-sm-2">Synopsis:</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" id="synopsis"
+								name="synopsis"><br>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<input type="hidden" name="action" value="add"> <input
+							class="btn btn btn-primary" type="submit" value="Add Book"
+							onclick="alert('Book Successfully Added')">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<body>
+	<h1 class="container text-center">Welcome to BOOKSTR, the book
+		database</h1>
+	<div class="container">
+		<img id="book-cover" src="" alt="Book cover image"
+			onerror="this.onerror=null;this.src='img/bookthumbnail.png';"
+			data-toggle="modal" data-target="#BookModal">
+		<div id="book-title"></div>
+		<div id="books-cover"></div>
+
+		<table id="bookTable">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Author</th>
+					<th>Genres</th>
+					<th>Characters</th>
+					<th>Synopsis</th>
+					<th>Update / Delete</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+		<div id="BookModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">${book.title}</h4>
+					</div>
+					<div class="modal-body">
+						<c:if test="${empty books}">
+
+							<p>No books found.</p>
+						</c:if>						<c:forEach var="book" items="${books}">
+
+
+							<h3>Synopsis</h3>
+							<p>${book.synopsis}</p>
+							<h3>Genres</h3>
+							<p>${book.genres}</p>
+							<h3>Characters</h3>
+							<p>${book.characters}</p>
+							<h3>Release Date</h3>
+							<p>${book.date}
+							<p>
+							<p></p>
+
+							<footer>By: ${book.author}</footer>
+					</div>
+					<div class="modal-footer">
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<input type="hidden" name="action" value="update"> <input
+									class="btn btn-primary" type="submit" value="Update"
+									data-toggle="modal" data-target="#updateModal"
+									data-dismiss="modal"> <input type="hidden"
+									name="action" value="delete"> <input
+									class="btn btn-danger" type="submit" value="Delete">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+					</c:forEach>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="updateModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<div class="container">
+						<h4 class="container text-center" style="font-style: italic;">
+							“We don’t make mistakes. We just have happy accidents"</h4>
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<h2>Update Book</h2>
+							</div>
+						</div>
+					</div>
+					<form action="books" method="post" class="form-horizontal">
+						<div class="form-group">
+
+							<label for="title" class="control-label col-sm-2">ID:</label>
+							<div class="col-sm-10">
+								<input class="form-control" type="text" id="id" name="id"
+									value="${book.id}"><br>
+							</div>
+
+							<label for="title" class="control-label col-sm-2">Title:</label>
+							<div class="col-sm-10">
+								<input class="form-control" type="text" id="title" name="title"
+									value="${book.title}"><br>
+							</div>
+
+							<label for="author" class="control-label col-sm-2">Author:</label>
+							<div class="col-sm-10">
+								<input class="form-control" type="text" id="author"
+									name="author" value="${book.author}"><br>
+							</div>
+
+							<label for="date" class="control-label col-sm-2">Date:</label>
+							<div class="col-sm-10">
+								<input class="form-control" type="date" id="date" name="date"
+									value="${book.date}"><br>
+							</div>
+
+							<label for="genres" class="control-label col-sm-2">Genres:</label>
+							<div class="col-sm-10">
+								<input class="form-control" type="text" id="genres"
+									name="genres" value="${book.genres}"><br>
+							</div>
+
+							<label for="characters" class="control-label col-sm-2">Characters:</label>
+							<div class="col-sm-10">
+								<input class="form-control" type="text" id="characters"
+									name="characters" value="${book.characters}"><br>
+							</div>
+
+							<label for="synopsis" class="control-label col-sm-2">Synopsis:</label>
+							<div class="col-sm-10">
+								<input class="form-control" type="text" id="synopsis"
+									name="synopsis" value="${book.synopsis}"><br>
+							</div>
+							<div class="modal-footer">
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<input type="submit" class="btn btn-primary"
+											value="Update Book"
+											onclick="alert('Book Successfully Updated')">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="script.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<footer class="container-fluid text-center">
+	<p>The Book Store by Jordan McGrath</p>
+</footer>
+</html>
