@@ -40,7 +40,7 @@ To set up the Bookstr application locally, follow these steps:
  
 	 	 ⁃	private static String user = "YOUR_USERNAME";
    	  	 ⁃	private static String password = "YOUR_PASSWPRD";
-     	  	 ⁃	private static String url = "YOU_MYSQL_DATABASE_URL" + user;
+     	 ⁃	private static String url = "YOU_MYSQL_DATABASE_URL" + user;
 	
 	•	Run create_books_table.sql scheme attached in your workbench.
 	•	Run the project to your preferred Java Servlet Container (e.g., Apache Tomcat 9).
